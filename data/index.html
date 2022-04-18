@@ -22,15 +22,17 @@
 
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
-        if (request.status === 200) {
+         if (request.status === 200) {
           // 成功
+          console.log('success: ', request.responseText)
         } else {
           // 失败
+          console.log('fail:')
         }
       }
     }
 
-    request.open('GET', 'https://gitee.com/realdogo/tops/raw/master/2204/17.json')
+    request.open('GET', 'https://sankincn.github.io/tops/data/17.json')
     request.send();
   </script>
 </body>
