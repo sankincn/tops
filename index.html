@@ -6,27 +6,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0B0E11;
+      color: #FFF;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .title {
+      padding: 30px 0 10px;
+      text-align: center;
+      font-size: 36px;
+      color: #F6465D;
+      font-style:oblique;
+    }
+    .date {
+      position: absolute;
+      right: 20px;
+      font-weight: lighter;
+      color: #fff;
+    }
+    .app {
+      max-width: 600px;
+      padding: 15px;
+      box-sizing: border-box;
+      margin: 0 auto;
+      position: relative;
+    }
+    .outer {
+      display: flex ;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 1px solid #aaa;
+    }
+    .per {
+      color: #0ECB81;
+    }
+  </style>
 </head>
-<body>
-  <div id="app">{{ message }}</div>
+<body class="app">
+  <div id="app">
+    <div class="date">2022-04-17</div>
+    <div class="title">TOPS</div>
+    <div v-if="list.length">
+      <div v-for="(l, i) in list" class="outer">
+        <div class="index">{{ i + 1 }}.</div>
+        <div class="name">{{ l.symb }}</div>
+        <div class="per">{{ l.maxinc }}%</div>
+      </div>
+    </div>
+  </div>
   <script>
-    new Vue({
+    const app = new Vue({
       el: '#app',
       data: {
-        message: 'hello'
+        message: 'hello',
+        list: []
       }
     })
 
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://gitee.com/realdogo/tops/raw/master/2204/test.js'
-    document.head.appendChild(script);
-  
-    function onBack(res) {
-      console.log(res);
+    var request = new XMLHttpRequest()
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+         if (request.status === 200) {
+          // 成功
+          app.list = JSON.parse(request.responseText);
+        } else {
+          // 失败
+          console.log('fail:')
+        }
+      }
     }
 
-    // request.open('GET', 'https://gitee.com/realdogo/tops/raw/master/2204/17.json')
+    request.open('GET', 'https://sankincn.github.io/tops/data/17.json')
+    request.send();
   </script>
 </body>
 </html>
