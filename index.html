@@ -16,6 +16,17 @@
         message: 'hello'
       }
     })
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://gitee.com/realdogo/tops/raw/master/2204/test.json'
+    document.head.appendChild(script);
+  
+    function onBack(res) {
+      console.log(res);
+    }
+
+    // request.open('GET', 'https://gitee.com/realdogo/tops/raw/master/2204/17.json')
   </script>
 </body>
 </html>
