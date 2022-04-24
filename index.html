@@ -147,16 +147,10 @@
     const date = new Date().getDate();
     const hour = new Date().getHours();
 
-    let i;
-    if (hour >= 10) {
-      // 昨天开始倒退
-      i = date - 1;
-    } else {
-      // 前天开始倒退
-      i = date - 2;
-    }
-    for (i; i >= date - 7; i--) {
-      const newDate = new Date(year, month, i);
+    let current = hour >= 10 ? date - 1 : date - 2;
+
+    for (let i = 0; i < 7; i++) {
+      const newDate = new Date(year, month, current);
       const y = newDate.getFullYear();
       const m = newDate.getMonth() + 1;
       const d = newDate.getDate();
@@ -166,6 +160,7 @@
         date: d,
         str: `${y}-${m}-${d}`
       });
+      current -= 1;
     }
     app.days = days;
 
